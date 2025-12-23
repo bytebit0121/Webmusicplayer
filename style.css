@@ -1,0 +1,330 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #020617;
+  --card-bg: rgba(15, 23, 42, 0.9);
+  --border: rgba(148, 163, 184, 0.5);
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.2);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1e293b 0%, var(--bg) 55%, #000 100%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  overflow: hidden;
+}
+
+/* Blurred orb background */
+.bg-orbit {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-soft), transparent 60%);
+  filter: blur(40px);
+  opacity: 0.8;
+  top: -120px;
+  right: -150px;
+  z-index: -1;
+}
+
+/* Card */
+.player {
+  width: 100%;
+  max-width: 380px;
+  padding: 24px 22px 26px;
+  border-radius: 26px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Header */
+.player__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.logo {
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Icon buttons */
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* shuffle ON visual state */
+#shuffle-btn.active {
+  background: rgba(56, 189, 248, 0.18);
+  color: var(--accent);
+}
+
+#shuffle-btn.active .material-icons {
+  transform: rotate(18deg);
+}
+
+/* Body: cover + info */
+.player__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.cover-wrap {
+  position: relative;
+  width: 190px;
+  height: 190px;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(15, 23, 42, 0.9);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+  transform-origin: 50% 50%;
+  transition: transform 0.2s ease;
+}
+
+/* glow ring */
+.cover-glow {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-soft);
+  filter: blur(4px);
+}
+
+/* rotation when playing */
+body.playing .cover {
+  animation: spin 15s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.track-info {
+  text-align: center;
+}
+
+.track-info h2 {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.track-info p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Controls section */
+.player__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* progress bar */
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progress__bar {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), #a855f7);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+/* main buttons row */
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Play button */
+.play-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle at 30% 0%, #a855f7, var(--accent));
+  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #020617;
+  cursor: pointer;
+  transform: translateY(0);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.play-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.9);
+}
+
+.play-btn .material-icons {
+  font-size: 30px;
+}
+
+/* volume slider */
+.volume {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+
+.volume__icon {
+  font-size: 18px;
+}
+
+/* custom range */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 90px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.6);
+  outline: none;
+}
+
+/* track */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 999px;
+}
+
+/* thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
+  margin-top: -5px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+}
+
+/* Playlist section */
+.playlist {
+  margin-top: 14px;
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  padding-top: 10px;
+  display: none;
+}
+
+.playlist.open {
+  display: block;
+}
+
+.playlist ul {
+  list-style: none;
+}
+
+.playlist li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+  padding: 6px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.playlist li span {
+  opacity: 0.85;
+}
+
+.playlist li.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: #e5e7eb;
+}
+
+/* small screens */
+@media (max-width: 480px) {
+  .player {
+    margin: 18px;
+  }
+
+  .cover-wrap {
+    width: 170px;
+    height: 170px;
+  }
+}

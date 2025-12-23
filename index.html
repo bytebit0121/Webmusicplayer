@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NightWave Player</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-orbit"></div>
+
+  <main class="player">
+    <header class="player__header">
+      <h1 class="logo">NightWave</h1>
+      <div class="header-actions">
+        <button class="icon-btn" id="shuffle-btn" title="Shuffle">
+          <span class="material-icons">shuffle</span>
+        </button>
+        <button class="icon-btn" id="queue-btn" title="Queue">
+          <span class="material-icons">queue_music</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="player__body">
+      <div class="cover-wrap">
+        <img src="assets/images/Track_1.jpg" alt="Cover" class="cover" id="cover">
+        <div class="cover-glow"></div>
+      </div>
+      <div class="track-info">
+        <h2 id="title">Midnight Drive</h2>
+        <p id="artist">Unknown Artist</p>
+      </div>
+    </section>
+
+    <section class="player__controls">
+      <div class="time-row">
+        <span id="current-time">0:00</span>
+        <div class="progress" id="progress-container">
+          <div class="progress__bar" id="progress-bar"></div>
+        </div>
+        <span id="duration">0:00</span>
+      </div>
+
+      <div class="controls-row">
+        <button class="icon-btn" id="prev-btn">
+          <span class="material-icons">skip_previous</span>
+        </button>
+
+        <button class="play-btn" id="play-btn">
+          <span class="material-icons" id="play-icon">play_arrow</span>
+        </button>
+
+        <button class="icon-btn" id="next-btn">
+          <span class="material-icons">skip_next</span>
+        </button>
+
+        <div class="volume">
+          <span class="material-icons volume__icon">volume_up</span>
+          <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8">
+        </div>
+      </div>
+    </section>
+
+    <!-- Playlist section -->
+    <section class="playlist" id="playlist">
+      <ul id="playlist-list"></ul>
+    </section>
+  </main>
+
+  <audio id="audio"></audio>
+
+  <!-- Google icons -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="script.js"></script>
+</body>
+</html>
